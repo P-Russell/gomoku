@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Play {
     private static Scanner s = new Scanner(System.in);
 
-    private static void getPlayMove(Board board) {
+    private static void getPlayMove(WorkingBoard workingBoard) {
         boolean success = false;
 
         while (!success) {
@@ -13,7 +13,7 @@ public class Play {
                     "separated by a space or type exit, then press enter");
             String line = s.nextLine();
             if (line.trim().toLowerCase().equals("exit")) {
-                board.setGameOver(true);
+                workingBoard.setGameOver(true);
                 return;
             }
             String[] values = line.trim().split("\\s+");
@@ -21,7 +21,7 @@ public class Play {
                 if (values.length == 2) {
                     int inputX = Integer.parseInt(values[0]);
                     int inputY = Integer.parseInt(values[1]);
-                    success = board.placeStone(inputX, inputY);
+                    success = workingBoard.placeStone(inputX, inputY);
                 } else
                     System.out.println("invalid input: " + Arrays.toString(values));
             } catch (NumberFormatException nfe) {
@@ -30,11 +30,11 @@ public class Play {
         }
     }
 
-    public static void loop(Board board) {
+    public static void loop(WorkingBoard workingBoard) {
 
-        while (!board.getGameOver()) {
-            board.printBoard();
-            getPlayMove(board);
+        while (!workingBoard.getGameOver()) {
+            workingBoard.printBoard();
+            getPlayMove(workingBoard);
         }
     }
 }

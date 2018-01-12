@@ -67,7 +67,7 @@ public class Heuristic {
                     countA++;
             }
             else
-                break;
+                return (0);
             i++;
         }
         return (countA);
@@ -82,7 +82,7 @@ public class Heuristic {
                     countA++;
             }
             else
-                break;
+                return (0);
             i++;
         }
         return (countA);
@@ -97,7 +97,7 @@ public class Heuristic {
                     countA++;
             }
             else
-                break;
+                return (0);
             i++;
         }
         return (countA);

@@ -9,7 +9,7 @@ public class Minimax {
     private int d = 0;
     private ValidMove dt = new ValidMove();
     private Heuristic hr = new Heuristic();
-    private Board b = new Board();
+    private WorkingBoard b = new WorkingBoard();
 
 
     public int[] options(int[][] brd, int p){

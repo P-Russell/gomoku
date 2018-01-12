@@ -1,15 +1,15 @@
 public class ValidMove extends DoubleThree{
-    int countHorizontal(Board board){
-        int lastY = board.getLastY();
-        int tempX = board.getLastX();
+    int countHorizontal(WorkingBoard workingBoard){
+        int lastY = workingBoard.getLastY();
+        int tempX = workingBoard.getLastX();
         int count = 1;
 
-        while (tempX > 0 && board.getBoard()[lastY][tempX - 1] == board.getLastPlayed()){
+        while (tempX > 0 && workingBoard.getBoard()[lastY][tempX - 1] == workingBoard.getLastPlayed()){
             count++;
             tempX--;
         }
-        tempX = board.getLastX();
-        while (tempX < 18 && board.getBoard()[lastY][tempX + 1] == board.getLastPlayed()){
+        tempX = workingBoard.getLastX();
+        while (tempX < 18 && workingBoard.getBoard()[lastY][tempX + 1] == workingBoard.getLastPlayed()){
             count++;
             tempX++;
         }
@@ -17,17 +17,17 @@ public class ValidMove extends DoubleThree{
     }
 
 
-    int countVertical(Board board){
-        int lastX = board.getLastX();
-        int tempY = board.getLastY();
+    int countVertical(WorkingBoard workingBoard){
+        int lastX = workingBoard.getLastX();
+        int tempY = workingBoard.getLastY();
         int count = 1;
 
-        while (tempY > 0 && board.getBoard()[tempY - 1][lastX] == board.getLastPlayed()){
+        while (tempY > 0 && workingBoard.getBoard()[tempY - 1][lastX] == workingBoard.getLastPlayed()){
             count++;
             tempY--;
         }
-        tempY = board.getLastY();
-        while (tempY < 18 && board.getBoard()[tempY + 1][lastX] == board.getLastPlayed()){
+        tempY = workingBoard.getLastY();
+        while (tempY < 18 && workingBoard.getBoard()[tempY + 1][lastX] == workingBoard.getLastPlayed()){
             count++;
             tempY++;
         }
@@ -35,19 +35,19 @@ public class ValidMove extends DoubleThree{
     }
 
 
-    int countDiagonals(Board board){
-        int tempY = board.getLastY();
-        int tempX = board.getLastX();
+    int countDiagonals(WorkingBoard workingBoard){
+        int tempY = workingBoard.getLastY();
+        int tempX = workingBoard.getLastX();
         int count = 1;
 
-        while (tempX > 0 && tempY > 0 && board.getBoard()[tempY - 1][tempX - 1] == board.getLastPlayed()){
+        while (tempX > 0 && tempY > 0 && workingBoard.getBoard()[tempY - 1][tempX - 1] == workingBoard.getLastPlayed()){
             tempX--;
             tempY--;
             count++;
         }
-        tempX = board.getLastX();
-        tempY = board.getLastY();
-        while (tempX < 18 && tempY < 18 && board.getBoard()[tempY + 1][tempX + 1] == board.getLastPlayed()){
+        tempX = workingBoard.getLastX();
+        tempY = workingBoard.getLastY();
+        while (tempX < 18 && tempY < 18 && workingBoard.getBoard()[tempY + 1][tempX + 1] == workingBoard.getLastPlayed()){
             tempX++;
             tempY++;
             count++;
@@ -55,16 +55,16 @@ public class ValidMove extends DoubleThree{
         if (count == 3)
             return count;
         count = 1;
-        tempX = board.getLastX();
-        tempY = board.getLastY();
-        while (tempX < 18 && tempY > 0 && board.getBoard()[tempY - 1][tempX + 1] == board.getLastPlayed()){
+        tempX = workingBoard.getLastX();
+        tempY = workingBoard.getLastY();
+        while (tempX < 18 && tempY > 0 && workingBoard.getBoard()[tempY - 1][tempX + 1] == workingBoard.getLastPlayed()){
             tempX++;
             tempY--;
             count++;
         }
-        tempX = board.getLastX();
-        tempY = board.getLastY();
-        while (tempX > 0 && tempY < 18 && board.getBoard()[tempY + 1][tempX - 1] == board.getLastPlayed()){
+        tempX = workingBoard.getLastX();
+        tempY = workingBoard.getLastY();
+        while (tempX > 0 && tempY < 18 && workingBoard.getBoard()[tempY + 1][tempX - 1] == workingBoard.getLastPlayed()){
             tempX--;
             tempY++;
             count++;
@@ -73,12 +73,12 @@ public class ValidMove extends DoubleThree{
     }
 
 
-    boolean isWinMove(Board board){
-        int horizontal = countHorizontal(board);
-        int vertical = countVertical(board);
-        int diagonal = countDiagonals(board);
+    boolean isWinMove(WorkingBoard workingBoard){
+        int horizontal = countHorizontal(workingBoard);
+        int vertical = countVertical(workingBoard);
+        int diagonal = countDiagonals(workingBoard);
         if (horizontal == 5 || vertical == 5 || diagonal == 5) {
-            System.out.println("Player " + board.getLastPlayed() + " has won the game");
+            System.out.println("Player " + workingBoard.getLastPlayed() + " has won the game");
             return true;
         }
         return false;
