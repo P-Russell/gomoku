@@ -1,18 +1,9 @@
 public class DoubleThree {
 
-    private int[][] temp = new int[19][19];
 
     public boolean doubleThree(int[][] arr, int r, int c, int p){
-
-        int i = 0;
-        while (i < 19) {
-            int j = 0;
-            while (j < 19) {
-                temp[i][j] = arr[i][j];
-                j++;
-            }
-            i++;
-        }
+        int[][] temp;
+        temp = arr;
         temp[r][c] = p;
         if ((hor(temp, r, c) + ver(temp, r, c) + diagLft(temp, r, c) + diagRght(temp, r, c)) > 1)
             return (true);

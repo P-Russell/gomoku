@@ -1,5 +1,5 @@
 public class ValidMove extends DoubleThree{
-    private int countHorizontal(Board board){
+    int countHorizontal(Board board){
         int lastY = board.getLastY();
         int tempX = board.getLastX();
         int count = 1;
@@ -17,7 +17,7 @@ public class ValidMove extends DoubleThree{
     }
 
 
-    private int countVertical(Board board){
+    int countVertical(Board board){
         int lastX = board.getLastX();
         int tempY = board.getLastY();
         int count = 1;
@@ -35,7 +35,7 @@ public class ValidMove extends DoubleThree{
     }
 
 
-    private int countDiagonals(Board board){
+    int countDiagonals(Board board){
         int tempY = board.getLastY();
         int tempX = board.getLastX();
         int count = 1;
@@ -73,7 +73,7 @@ public class ValidMove extends DoubleThree{
     }
 
 
-    public boolean isWinMove(Board board){
+    boolean isWinMove(Board board){
         int horizontal = countHorizontal(board);
         int vertical = countVertical(board);
         int diagonal = countDiagonals(board);

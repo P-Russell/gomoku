@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Board extends Capture {
-    private int[][] board = new int[19][19];
+    public int[][] board = new int[19][19];
     private int lastPlayed = 2;
     private int lastX;
     private int lastY;
@@ -9,16 +9,35 @@ public class Board extends Capture {
     private ValidMove valid = new ValidMove();
 
     public boolean placeStone(int x, int y){
-
+        // need to check for capture first and then doubleThree
+        // reason is that if a capture happens a doubleThree is legal
         if (x < 19 && x >= 0 && y < 19 && y >= 0 && board[y][x] == 0){
+            /*
+            do you agree with the one in quotes?
+            if (lastPlayed == 1){
+                    if (capture(board, y, x, 2) == true)
+                        board[y][x] = lastPlayed = 2;
+                    else if (!valid.doubleThree(board, y, x, 2))
+                        board[y][x] = lastPlayed = 2;
+                    else
+                        return (false);
+                }
+            else {
+                    if (capture(board, y, x, 1) == true)
+                        board[y][x] = lastPlayed = 1;
+                    else if (!valid.doubleThree(board, y, x, 1))
+                        board[y][x] = lastPlayed = 1;
+                    else
+                        return (false);
+            lastX = x;
+            lastY = y;
+            return true;
+             */
             if (lastPlayed == 1 && !valid.doubleThree(board, y, x,2)) {
                     board[y][x] = lastPlayed = 2;
-                    capture(board, y, x, lastPlayed);
                 }
             else if (!valid.doubleThree(board, y, x, 1)) {
-                    capture(board, y, x, 1);
                     board[y][x] = lastPlayed = 1;
-                    ;
                 }
             else
                 return false;
