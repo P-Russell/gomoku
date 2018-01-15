@@ -57,3 +57,4 @@ dkms.conf
 __pychache__/
 .idea/
 *.pyc
+out/
