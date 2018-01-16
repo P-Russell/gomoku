@@ -1,6 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        TestPlay.loop();
+        TestPlay t = new TestPlay();
+        t.loop();
     }
 }
