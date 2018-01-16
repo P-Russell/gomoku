@@ -4,7 +4,6 @@ public class Capture {
         if (r < 16)
             if (move == arr[r + 3][c] && arr[r + 1][c] != move && arr[r + 1][c] == arr[r + 2][c] & arr[r + 1][c] != 0) {
                 arr[r + 1][c] = arr[r + 2][c] = 0;
-                arr[r][c] = move;
                 return (true);
             }
         //up
