@@ -28,6 +28,10 @@ public class Board
         this.lastY = y;
     }
 
+    public void placeSuggestedPiece(int y, int x, int val){
+        this.board[y][x] = val;
+    }
+
     public boolean isTerminal() {
         WinningMove winMove = new WinningMove();
         return winMove.isWinMove(this);

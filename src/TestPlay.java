@@ -17,7 +17,7 @@ public class TestPlay extends Canvas{
         Move clickMove = new Move(0, 0, 0);
         Move move;
         this.addMouseListener(new MouseGame(clickMove, player1, player2, workingBoard));
-        //this.addKeyListener(new KeyGame(board, this));
+        this.addKeyListener(new KeyGame(workingBoard, this, player1, player2));
         while (flag) {
             if (workingBoard.getLastPlayed() != player1.getName()) {
                 if (player1.isAI()){
