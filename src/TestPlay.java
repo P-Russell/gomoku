@@ -8,32 +8,38 @@ public class TestPlay extends Canvas{
 
     public static final int WIDTH = 1080, HEIGHT = 720;
 
-        public void loop() {
-            new Window(WIDTH, HEIGHT, "Gomoku", this);
-            Player player1 = new Player(1, true);
-            Player player2 = new Player(2, true);
-            Board workingBoard = new Board(19);
-            boolean flag = true;
-            Move move;
-            //this.addMouseListener(new MouseGame(pos, AI));
-            //this.addKeyListener(new KeyGame(board, this));
-
-            while (flag) {
-                if (workingBoard.getLastPlayed() != player1.getName()) {
+    public void loop() {
+        new Window(WIDTH, HEIGHT, "Gomoku", this);
+        Player player1 = new Player(1, false);
+        Player player2 = new Player(2, false);
+        Board workingBoard = new Board(19);
+        boolean flag = true;
+        Move clickMove = new Move(0, 0, 0);
+        Move move;
+        this.addMouseListener(new MouseGame(clickMove, player1, player2, workingBoard));
+        //this.addKeyListener(new KeyGame(board, this));
+        while (flag) {
+            if (workingBoard.getLastPlayed() != player1.getName()) {
+                if (player1.isAI()){
                     move = player1.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
-                else {
-                    move = player2.getBestMove(workingBoard);
-                    workingBoard.placeValidatedPiece(move.y, move.x);
-                }
-                render(workingBoard, 1000);
-                TerminalGame.printBoard(workingBoard.getBoard());
-                flag = !workingBoard.isTerminal();
-                //flag = TerminalGame.exitGame();
             }
-            render(workingBoard, 5000);
+            else if (player2.isAI()) {
+                move = player2.getBestMove(workingBoard);
+                workingBoard.placeValidatedPiece(move.y, move.x);
+            }
+            if (clickMove.piece != 0){
+                workingBoard.placeValidatedPiece(clickMove.y, clickMove.x);
+                clickMove.piece = 0;
+            }
+            render(workingBoard, 1000);
+            //TerminalGame.printBoard(workingBoard.getBoard());
+            flag = !workingBoard.isTerminal();
+            //flag = TerminalGame.exitGame();
         }
+        render(workingBoard, 1000);
+    }
 
     private BufferedImage image;
     private long time;
