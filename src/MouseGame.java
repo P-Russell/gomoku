@@ -3,25 +3,29 @@ import java.awt.event.MouseEvent;
 
 public class MouseGame extends MouseAdapter {
 
-    private int[] pos;
-    private boolean AI;
+    private Move pos;
+    private Player p1;
+    private Player p2;
+    private Board board;
 
-    public MouseGame(int[] pos, boolean AI){
+    public MouseGame(Move pos, Player p1, Player p2, Board board){
         this.pos = pos;
-        this.AI = AI;
+        this.p1 = p1;
+        this.p2 = p2;
+        this.board = board;
     }
 
     public void mouseClicked(MouseEvent e){
-        if (!AI && e.getY() >= 35 && e.getY() <= 697 && e.getX() >= 35 && e.getX() <= 697)
+        if (board.getLastPlayed() != p1.getName() && !p1.isAI() && e.getY() >= 35 && e.getY() <= 697 && e.getX() >= 35 && e.getX() <= 697)
         {
-            pos[0] = 1;
-            pos[1] = ((e.getY() - 35) / 35);
-            pos[2] = ((e.getX() - 35) / 35);
+            pos.piece = p1.getName();
+            pos.y = ((e.getY() - 35) / 35);
+            pos.x = ((e.getX() - 35) / 35);
         }
-        else {
-            pos[0] = 0;
-            pos[1] = 0;
-            pos[2] = 0;
+        else if (board.getLastPlayed() != p2.getName() && !p2.isAI() && e.getY() >= 35 && e.getY() <= 697 && e.getX() >= 35 && e.getX() <= 697) {
+            pos.piece = p2.getName();
+            pos.y = ((e.getY() - 35) / 35);
+            pos.x = ((e.getX() - 35) / 35);
         }
     }
 
