@@ -35,7 +35,7 @@ public class Main {
         for(int i = 0; i < expanded.size(); i++)
             TerminalGame.printBoard(expanded.get(i).getBoard());
 
-        //TestPlay t = new TestPlay();
-        //t.loop();
+        TestPlay t = new TestPlay();
+        t.loop();
     }
 }
