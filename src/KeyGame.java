@@ -1,7 +1,5 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.DatabaseMetaData;
-import java.util.Date;
 
 public class KeyGame extends KeyAdapter {
 
