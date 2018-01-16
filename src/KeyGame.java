@@ -1,7 +1,5 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.DatabaseMetaData;
-import java.util.Date;
 
 public class KeyGame extends KeyAdapter {
 
@@ -26,16 +24,7 @@ public class KeyGame extends KeyAdapter {
             else
                 temp = new Player(p2.getName(), true);
             move = temp.getBestMove(this.board);
-            this.board.placeSuggestedPiece(move.y, move.x, 3);
-            Date d = new Date();
-            long b = d.getTime();
-            long end = d.getTime();
-            while (end - b < 1000) {
-                this.play.render(board, 1000);
-                d = new Date();
-                end = d.getTime();
-            }
-            this.board.placeSuggestedPiece(move.y, move.x, 0);
+            this.play.flash(this.board, move.y, move.x, 3);
         }
     }
 

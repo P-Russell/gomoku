@@ -5,8 +5,11 @@ public class DoubleThree {
         int[][] temp;
         temp = arr;
         temp[r][c] = p;
-        if (hor(temp, r, c) + ver(temp, r, c) + diagLft(temp, r, c) + diagRght(temp, r, c) > 1)
+        if (hor(temp, r, c) + ver(temp, r, c) + diagLft(temp, r, c) + diagRght(temp, r, c) > 1) {
+            temp[r][c] = 0;
             return (true);
+        }
+        temp[r][c] = 0;
         return (false);
     }
 

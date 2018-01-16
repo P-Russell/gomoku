@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Date;
 
 public class TestPlay extends Canvas{
 
@@ -13,6 +14,7 @@ public class TestPlay extends Canvas{
         Player player1 = new Player(1, false);
         Player player2 = new Player(2, false);
         Board workingBoard = new Board(19);
+        CheckMove validator = new CheckMove();
         boolean flag = true;
         Move clickMove = new Move(0, 0, 0);
         Move move;
@@ -30,7 +32,14 @@ public class TestPlay extends Canvas{
                 workingBoard.placeValidatedPiece(move.y, move.x);
             }
             if (clickMove.piece != 0){
-                workingBoard.placeValidatedPiece(clickMove.y, clickMove.x);
+                if (validator.validateAndCapturePieces(workingBoard, clickMove.y, clickMove.x)) {
+                    System.out.println("place");
+                    workingBoard.placeValidatedPiece(clickMove.y, clickMove.x);
+                }
+                else {
+                    System.out.println("Invalid Move");
+                    flash(workingBoard, clickMove.y, clickMove.x, 4);
+                }
                 clickMove.piece = 0;
             }
             render(workingBoard, 1000);
@@ -85,13 +94,28 @@ public class TestPlay extends Canvas{
                 if (board[y][x] > 0) {
                     if (board[y][x] == 1) g.setColor(Color.white);
                     else if (board[y][x] == 2) g.setColor(Color.black);
-                    else //board[y][x] == 3 i.e. suggestion move
-                        g.setColor(Color.red);
+                    else if (board[y][x] == 3) g.setColor(Color.green);
+                    else g.setColor(Color.red);
                     g.fillOval(((x * 35) + 40), ((y * 35) + 38), 20, 20);
                 }
                 y++;
             }
             x++;
         }
+    }
+
+    public void flash(Board board, int r, int c, int val){
+        int[][] temp = board.getBoard();
+        int t = temp[r][c];
+        board.placeSuggestedPiece(r, c, val);
+        Date d = new Date();
+        long b = d.getTime();
+        long end = d.getTime();
+        while (end - b < 1000) {
+            render(board, 1000);
+            d = new Date();
+            end = d.getTime();
+        }
+        board.placeSuggestedPiece(r, c, t);
     }
 }
