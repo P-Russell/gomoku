@@ -32,10 +32,8 @@ public class TestPlay extends Canvas{
                 workingBoard.placeValidatedPiece(move.y, move.x);
             }
             if (clickMove.piece != 0){
-                if (validator.validateAndCapturePieces(workingBoard, clickMove.y, clickMove.x)) {
-                    System.out.println("place");
+                if (validator.validateAndCapturePieces(workingBoard, clickMove.y, clickMove.x))
                     workingBoard.placeValidatedPiece(clickMove.y, clickMove.x);
-                }
                 else {
                     System.out.println("Invalid Move");
                     flash(workingBoard, clickMove.y, clickMove.x, 4);
