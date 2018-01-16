@@ -20,19 +20,16 @@ public class TestPlay extends Canvas{
 
             while (flag) {
                 if (workingBoard.getLastPlayed() != player1.getName()) {
-                    if (!player1.isAI())
-                        TerminalGame.printBoard(workingBoard.getBoard());
                     move = player1.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
                 else {
-                    if (!player2.isAI())
-                        TerminalGame.printBoard(workingBoard.getBoard());
                     move = player2.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
-                //flag = TerminalGame.exitGame();
+                TerminalGame.printBoard(workingBoard.getBoard());
                 flag = !workingBoard.isTerminal();
+                //flag = TerminalGame.exitGame();
                 render(workingBoard, 1000);
             }
         }
