@@ -20,6 +20,7 @@ public class TestPlay {
                     move = player2.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
+                TerminalGame.printBoard(workingBoard.getBoard());
                 //flag = TerminalGame.exitGame();
             }
         }
