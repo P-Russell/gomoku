@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ExpandBoard {
 
@@ -8,33 +9,29 @@ public class ExpandBoard {
         int[][] moves = new int[board.getBoard().length][board.getBoard().length];
         CheckMove validator = new CheckMove();
         int stepFromPlaced = 2;
-        for(int y = 0; y < board.getBoard().length; y++)
-            for(int x = 0; x < board.getBoard().length; x++) {
-                if (board.getBoard()[y][x] != board.getLastPlayed()) {
-                    for(int i = stepFromPlaced; i > 0; i--)
-                        if(!(i + x > board.getBoard().length) && moves) {
 
+
+        for (int y = 0; y < board.getBoard().length; y++)
+            for (int x = 0; x < board.getBoard().length; x++) {
+                if (board.getBoard()[y][x] != 0 && board.getBoard()[y][x] != 0) {
+                    for (int tempY = y - stepFromPlaced;
+                         tempY <= (y + stepFromPlaced) && tempY < board.getBoard().length; tempY++)
+                        for (int tempX = x - stepFromPlaced;
+                             tempX <= (x + stepFromPlaced) && tempX < board.getBoard().length; tempX++) {
+                            if (tempX >= 0 && tempY >= 0 && moves[tempY][tempX] == 0 && board.getBoard()[tempY][tempX] == 0) {
+                                moves[tempY][tempX] = 1;
+                                Board node = new Board(board);
+                                if (validator.isCaptureMove(node, tempY, tempX)) {
+                                    validator.capturePieces(node, tempY, tempY);
+                                    node.placeValidatedPiece(tempY, tempX);
+                                    expanded.add(node);
+                                } else if (!validator.isDoubleThree(node, tempY, tempX)) {
+                                    node.placeValidatedPiece(tempY, tempX);
+                                    expanded.add(node);
+                                }
+
+                            }
                         }
-
-
-
-
-
-
-
-
-
-
-                    Board node = new Board(board);
-                    if (validator.isCaptureMove(node, y, x)) {
-                        validator.capturePieces(node, y, x);
-                        node.placeValidatedPiece(y, x);
-                        expanded.add(node);
-                    }
-                    else if (!validator.isDoubleThree(node, y, x)) {
-                        node.placeValidatedPiece(y, x);
-                        expanded.add(node);
-                    }
                 }
             }
         return expanded;
