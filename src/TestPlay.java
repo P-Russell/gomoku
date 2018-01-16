@@ -27,11 +27,12 @@ public class TestPlay extends Canvas{
                     move = player2.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
+                render(workingBoard, 1000);
                 TerminalGame.printBoard(workingBoard.getBoard());
                 flag = !workingBoard.isTerminal();
                 //flag = TerminalGame.exitGame();
-                render(workingBoard, 1000);
             }
+            render(workingBoard, 5000);
         }
 
     private BufferedImage image;
