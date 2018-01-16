@@ -74,10 +74,7 @@ public class WinningMove {
 
 
     boolean isWinMove(Board board){
-        int horizontal = countHorizontal(board);
-        int vertical = countVertical(board);
-        int diagonal = countDiagonals(board);
-        if (horizontal >= 5 || vertical >= 5 || diagonal >= 5) {
+        if (countHorizontal(board) >= 5 || countVertical(board) >= 5 || countDiagonals(board) >= 5) {
             System.out.println("Player " + board.getLastPlayed() + " has won the game");
             return true;
         }
