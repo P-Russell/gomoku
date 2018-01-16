@@ -10,7 +10,8 @@ public class ExpandBoard {
         ArrayList<Move> moves = new ArrayList<Move>();
 
         for(int y = 0; y < board.getBoard().length; y++)
-            for(int x = 0; x < bo)
+            for(int x = 0; x < board.getBoard().length; x++)
+
 
 
 
