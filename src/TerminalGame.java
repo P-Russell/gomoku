@@ -38,7 +38,7 @@ public class TerminalGame {
         while (true) {
             x = flip.nextInt(board.getBoard().length);
             y = flip.nextInt(board.getBoard().length);
-            System.out.println("Testing Random x: " + x + " Random y: " + y);
+           // System.out.println("Testing Random x: " + x + " Random y: " + y);
             if (validator.validateAndCapturePieces(board, y, x)) {
                // System.out.println("Random x: " + x + " Random y: " + y);
                 Move move = new Move(y, x, player.getName());
@@ -50,6 +50,7 @@ public class TerminalGame {
     public static void printBoard(int[][] board) {
         for (int i = 0; i < board.length; i++)
             System.out.println(Arrays.toString(board[i]));
+        System.out.println();
     }
 
     public static boolean exitGame() {

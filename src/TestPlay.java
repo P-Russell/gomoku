@@ -9,18 +9,19 @@ public class TestPlay {
 
             while (flag) {
                 if (workingBoard.getLastPlayed() != player1.getName()) {
-                    if (!player1.isAI())
-                        TerminalGame.printBoard(workingBoard.getBoard());
+//                    if (!player1.isAI())
+//                        TerminalGame.printBoard(workingBoard.getBoard());
                     move = player1.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
                 else {
-                    if (!player2.isAI())
-                        TerminalGame.printBoard(workingBoard.getBoard());
+//                    if (!player2.isAI())
+//                        TerminalGame.printBoard(workingBoard.getBoard());
                     move = player2.getBestMove(workingBoard);
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
                 TerminalGame.printBoard(workingBoard.getBoard());
+                flag = !workingBoard.isTerminal();
                 //flag = TerminalGame.exitGame();
             }
         }
