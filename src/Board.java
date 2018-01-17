@@ -4,6 +4,7 @@ public class Board
     private int lastPlayed;
     private int lastX;
     private int lastY;
+    private int heuristic;
 
     public Board(Board board) {
         this.board = new int[board.getBoard().length][];
@@ -53,4 +54,11 @@ public class Board
         return board;
     }
 
+    public void setHeuristic(int v){
+        this.heuristic = v;
+    }
+
+    public int getHeuristic(){
+        return this.heuristic;
+    }
 }
