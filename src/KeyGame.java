@@ -24,7 +24,7 @@ public class KeyGame extends KeyAdapter {
             else
                 temp = new Player(p2.getName(), true);
             move = temp.getBestMove(this.board);
-            this.play.flash(this.board, move.y, move.x, 3);
+            this.play.flash(this.board, move.y, move.x, 3, 1000);
         }
     }
 
