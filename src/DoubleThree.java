@@ -13,6 +13,18 @@ public class DoubleThree {
         return (false);
     }
 
+    public boolean Three(int[][] arr, int r, int c, int p){
+        int[][] temp;
+        temp = arr;
+        temp[r][c] = p;
+        if (hor(temp, r, c) + ver(temp, r, c) + diagLft(temp, r, c) + diagRght(temp, r, c) == 1) {
+            temp[r][c] = 0;
+            return (true);
+        }
+        temp[r][c] = 0;
+        return (false);
+    }
+
     //3 in a row
     private int hor(int[][] arr, int r, int c){
         int i = 0;

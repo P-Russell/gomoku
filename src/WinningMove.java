@@ -52,7 +52,7 @@ public class WinningMove {
             tempY++;
             count++;
         }
-        if (count == 3)
+        if (count == 5)
             return count;
         count = 1;
         tempX = board.getLastX();

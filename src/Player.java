@@ -35,8 +35,10 @@ public class Player {
 
     public Move getBestMove(Board board) {
         if (this.isAI) {
-            Move tp = BoardHeuristic.heuristicSum(board, board.getBoard(), this.getName());
+           /* Move tp = BoardHeuristic.heuristicSum(board, board.getBoard(), this.getName());
+            System.out.println(tp.piece);
             if (tp.piece >= 1400) {
+                System.out.println("move r" + tp.y + " c " + tp.x);
                 tp.piece = this.getName();
                 return (tp);
             }
@@ -53,15 +55,15 @@ public class Player {
                     val = nodes.get(i).getHeuristic();
                     t = i;
                 }
-            }
-            /*Move t = BoardHeuristic.heuristicSum(board, board.getBoard(), this.getName());
+            }*/
+            Move t = BoardHeuristic.heuristicSum(board, board.getBoard(), this.getName());
             if (t.piece >= 1400) {
                 t.piece = this.getName();
                 return (t);
-            }*/
+            }
             //MiniMax.miniMax(board, 5, true, this.getName());
-            return (new Move(nodes.get(t).getLastY(), nodes.get(t).getLastX(), this.getName()));
-            //return (TerminalGame.randomMove(board, this));
+            //return (new Move(nodes.get(t).getLastY(), nodes.get(t).getLastX(), this.getName()));
+            return (TerminalGame.randomMove(board, this));
         } else
             return (TerminalGame.getMoveFromTerminal(board, this));
     }

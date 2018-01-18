@@ -19,7 +19,7 @@ public class MiniMax {
             nodes = ExpandBoard.expand(board);
             l = nodes.size();
             while (i < l){
-                value = miniMax(nodes.get(i), depth - 1, false, (p % 2) + 1, alpha, beta);
+                value = miniMax(nodes.get(i), depth - 1, false, (p % 2) + 1, alpha, beta) - 10 * (5 - depth);
                 bestValue = Math.max(bestValue, value);
                 alpha = Math.max(alpha, bestValue);
                 if (beta <= alpha)
@@ -35,7 +35,7 @@ public class MiniMax {
             nodes = ExpandBoard.expand(board);
             l = nodes.size();
             while (i < l){
-                value = miniMax(nodes.get(i), depth - 1, true, (p % 2) + 1, alpha, beta);
+                value = miniMax(nodes.get(i), depth - 1, true, (p % 2) + 1, alpha, beta) - 10 * (5 - depth);
                 bestValue = Math.min(bestValue, value);
                 beta = Math.min(beta, bestValue);
                 if (beta <= alpha)

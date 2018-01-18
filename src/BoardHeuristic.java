@@ -1,21 +1,28 @@
 public class BoardHeuristic {
 
     public  static int[][] heuristic(Board board, int[][] brd, int p){
-        int[] limits = brdLimits(brd);
         int[][] brdSol = new int[19][19];
         CheckMove valid = new CheckMove();
-        int i = limits[0];
-        while (i <= limits[3]){
-            int j = limits[1];
-            while (j <= limits[2]){
+        int rl = (board.getDownRight().y + 3 < 18) ? (board.getDownRight().y + 3) : 18;
+        int cl = (board.getDownRight().x + 3 < 18) ? (board.getDownRight().x + 3) : 18;
+        int i = (board.getUpLeft().y - 3 >= 0) ? board.getUpLeft().y - 3 : 0;
+        while (i <= rl){
+            int j = (board.getUpLeft().x - 3 >= 0) ? board.getUpLeft().x - 3 : 0;
+            while (j <= cl){
                 if (brd[i][j] == 0 && (valid.isCaptureMove(board, i, j) || !valid.isDoubleThree(board, i, j))) {
-                    int pl = 400 * row(brd, p, i, j, 4);
-                    int op = (400 * row(brd, (p % 2) + 1, i, j, 4)) - 100;
-                    int pl1 = 500 * row(brd, p, i, j, 3);
-                    int op1 = (500 * row(brd, (p % 2) + 1, i, j, 3)) - 50;
-                    pl = Math.max(pl, op);
-                    pl1 = Math.max(pl1, op1);
-                    brdSol[i][j] = pl + pl1;
+                    if (valid.singleThree(board, i, j)) {
+                        brdSol[i][j] = 2100;
+                    }
+                    else {
+                        //System.out.println("check");
+                        int pl = 400 * row(brd, p, i, j, 4);
+                        int op = (400 * row(brd, (p % 2) + 1, i, j, 4)) - 100;
+                        int pl1 = 500 * row(brd, p, i, j, 3);
+                        int op1 = (500 * row(brd, (p % 2) + 1, i, j, 3)) - 50;
+                        pl = Math.max(pl, op);
+                        pl1 = Math.max(pl1, op1);
+                        brdSol[i][j] = Math.max(pl, pl1);
+                    }
                 }
                 else if (brd[i][j] != 0)
                     brdSol[i][j] = -1;
@@ -30,13 +37,14 @@ public class BoardHeuristic {
     //sent back by the miniMax nodes
     //it doesn't have to be the sum
     public static Move heuristicSum(Board board, int[][] brd, int p){
-        int[] limits = brdLimits(brd);
         int[][] brdSol = heuristic(board, brd, p);
-        int i = limits[0];
+        int rl = (board.getDownRight().y + 3 < 18) ? (board.getDownRight().y + 3) : 18;
+        int cl = (board.getDownRight().x + 3 < 18) ? (board.getDownRight().x + 3) : 18;
+        int i = (board.getUpLeft().y - 3 >= 0) ? board.getUpLeft().y - 3 : 0;
         Move val = new Move(0, 0, 0);
-        while (i <= limits[3]){
-            int j = limits[1];
-            while (j <= limits[2]){
+        while (i <= rl){
+            int j = (board.getUpLeft().x - 3 >= 0) ? board.getUpLeft().x - 3 : 0;
+            while (j <= cl){
                 if (brdSol[i][j] != 0 && val.piece < brdSol[i][j]) {
                     val.piece = brdSol[i][j];
                     val.y = i;
@@ -46,7 +54,7 @@ public class BoardHeuristic {
             }
             i++;
         }
-        //TerminalGame.printBoard(brdSol);
+        TerminalGame.printBoard(brdSol);
         //currently returns the max value over the whole board
         return (val);
     }
@@ -127,29 +135,6 @@ public class BoardHeuristic {
         val = Math.max(val, diagonalLeft(brd, p, r, c, -1, row));
         val = Math.max(val, diagonalLeft(brd, p, r, c, 1, row));
         return (val);
-    }
-
-    private static int[] brdLimits(int[][] brd){
-        int[] limits = new int[4];
-        limits[0] = 19;//upper
-        limits[1] = 19;//left
-        limits[2] = 0;//lower
-        limits[3] = 0;//right
-        int i = 0;
-        while (i < 19){
-            int j = 0;
-            while (j < 19){
-                if (brd[i][j] != 0){
-                    limits[0] = Math.min(limits[0], i);//upper
-                    limits[1] = Math.min(limits[1], j);//left
-                    limits[2] = Math.max(limits[2], j);//right
-                    limits[3] = Math.max(limits[3], i);//lower
-                }
-                j++;
-            }
-            i++;
-        }
-        return (limits);
     }
 
 }
