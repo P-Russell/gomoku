@@ -24,12 +24,12 @@ public class Counts {
                 if (board.getBoard()[y][x] == board.getLastPlayed()) {
                     if (examinedHorizontal[y][x] == 0)
                         horizontalCount = countHorizontal(board, y, x, examinedHorizontal);
-                    if (examinedVertical[y][x] == 0)
+                    /*if (examinedVertical[y][x] == 0)
                         verticalCount = countVertical(board, y, x, examinedVertical);
                     if (examinedLeftDiagonals[y][x] == 0)
                         leftDiagonalsCount = countLeftDiagonals(board, y, x, examinedLeftDiagonals);
                     if (examinedRightDiagonals[y][x] == 0)
-                        rightDiagonalsCount = countRightDiagonals(board, y, x, examinedRightDiagonals);
+                        rightDiagonalsCount = countRightDiagonals(board, y, x, examinedRightDiagonals);*/
                 }
             }
     }
