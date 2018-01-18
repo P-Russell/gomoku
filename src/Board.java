@@ -7,6 +7,7 @@ public class Board
     private int heuristic;
     private Move upLeft = new Move(19, 19, 0);
     private Move downRight = new Move(0, 0, 0);
+    private int moves = 0;
 
     public Board(Board board) {
         this.board = new int[board.getBoard().length][];
@@ -31,6 +32,7 @@ public class Board
             this.board[y][x] = this.lastPlayed = 1;
         this.lastX = x;
         this.lastY = y;
+        this.moves++;
         //upLeft
         if (y < this.upLeft.y)
             this.upLeft.y = y;
@@ -83,4 +85,9 @@ public class Board
     public int getHeuristic(){
         return this.heuristic;
     }
+
+    public int getMoves(){
+        return (this.moves);
+    }
+
 }
