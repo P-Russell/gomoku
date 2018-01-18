@@ -3,26 +3,28 @@ public class BoardHeuristic {
     public  static int[][] heuristic(Board board, int[][] brd, int p){
         int[][] brdSol = new int[19][19];
         CheckMove valid = new CheckMove();
-        int rl = (board.getDownRight().y + 3 < 18) ? (board.getDownRight().y + 3) : 18;
-        int cl = (board.getDownRight().x + 3 < 18) ? (board.getDownRight().x + 3) : 18;
-        int i = (board.getUpLeft().y - 3 >= 0) ? board.getUpLeft().y - 3 : 0;
+        int rl = (board.getDownRight().y + 2 < 18) ? (board.getDownRight().y + 2) : 18;
+        int cl = (board.getDownRight().x + 2 < 18) ? (board.getDownRight().x + 2) : 18;
+        int i = (board.getUpLeft().y - 2 >= 0) ? board.getUpLeft().y - 2 : 0;
+
         while (i <= rl){
-            int j = (board.getUpLeft().x - 3 >= 0) ? board.getUpLeft().x - 3 : 0;
+            int j = (board.getUpLeft().x - 2 >= 0) ? board.getUpLeft().x - 2 : 0;
             while (j <= cl){
                 if (brd[i][j] == 0 && (valid.isCaptureMove(board, i, j) || !valid.isDoubleThree(board, i, j))) {
-                    if (valid.singleThree(board, i, j)) {
-                        brdSol[i][j] = 1800;
-                    }
-                    else {
-                        //System.out.println("check");
-                        int pl = 400 * row(brd, p, i, j, 4);
-                        int op = (400 * row(brd, (p % 2) + 1, i, j, 4)) - 100;
-                        int pl1 = 500 * row(brd, p, i, j, 3);
-                        int op1 = (500 * row(brd, (p % 2) + 1, i, j, 3)) - 50;
-                        pl = Math.max(pl, op);
-                        pl1 = Math.max(pl1, op1);
-                        brdSol[i][j] = Math.max(pl, pl1);
-                    }
+                    //System.out.println("check");
+                    int pl = (row(brd, p, i, j, 4) == 4) ? 2500 : 0;
+                    int op = (row(brd, (p % 2) + 1, i, j, 4) == 4) ? 2400 : 0;
+                    int pl1 = (row(brd, p, i, j, 4) == 3) ? 2000 : 0;
+                    int op1 = (row(brd, (p % 2) + 1, i, j, 4) == 3) ? 1900 : 0;
+                    int pl2 = (row(brd, p, i, j, 3) == 3) ? 2200 : 0;
+                    int op2 = (row(brd, (p % 2) + 1, i, j, 3) == 3) ? 2100 : 0;
+                    int st = (valid.singleThree(board, i, j)) ? 1800 : 0;
+                    pl2 = Math.max(pl2, op2);
+                    pl = Math.max(pl, op);
+                    pl1 = Math.max(pl1, op1);
+                    pl2 = Math.max(pl2, st);
+                    pl1 = Math.max(pl1, pl2);
+                    brdSol[i][j] = Math.max(pl, pl1);
                 }
                 else if (brd[i][j] != 0)
                     brdSol[i][j] = -1;
@@ -38,25 +40,27 @@ public class BoardHeuristic {
     //it doesn't have to be the sum
     public static Move heuristicSum(Board board, int[][] brd, int p){
         int[][] brdSol = heuristic(board, brd, p);
-        int rl = (board.getDownRight().y + 3 < 18) ? (board.getDownRight().y + 3) : 18;
-        int cl = (board.getDownRight().x + 3 < 18) ? (board.getDownRight().x + 3) : 18;
-        int i = (board.getUpLeft().y - 3 >= 0) ? board.getUpLeft().y - 3 : 0;
+        int rl = (board.getDownRight().y + 2 < 18) ? (board.getDownRight().y + 2) : 18;
+        int cl = (board.getDownRight().x + 2 < 18) ? (board.getDownRight().x + 2) : 18;
+        int i = (board.getUpLeft().y - 2 >= 0) ? board.getUpLeft().y - 2 : 0;
         int y = 19;
         int x = 19;
         Move val = new Move(0, 0, 0);
         while (i <= rl){
-            int j = (board.getUpLeft().x - 3 >= 0) ? board.getUpLeft().x - 3 : 0;
+            int j = (board.getUpLeft().x - 2 >= 0) ? board.getUpLeft().x - 2 : 0;
             while (j <= cl){
                 if (brdSol[i][j] != 0 && val.piece <= brdSol[i][j]) {
                     if (val.piece < brdSol[i][j]) {
                         val.piece = brdSol[i][j];
+                        y = Math.abs(board.getLastY() - i);
+                        x = Math.abs(board.getLastX() - j);
                         val.y = i;
                         val.x = j;
                     }
                     else if (val.piece == brdSol[i][j]){
-                        if (y > Math.abs(board.getLastY() - i) || x > Math.abs(board.getLastX() - y)){
+                        if (y >= Math.abs(board.getLastY() - i) || x >= Math.abs(board.getLastX() - j)){
                             y = Math.abs(board.getLastY() - i);
-                            x = Math.abs(board.getLastX() - i);
+                            x = Math.abs(board.getLastX() - j);
                             val.y = i;
                             val.x = j;
                         }

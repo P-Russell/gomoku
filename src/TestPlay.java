@@ -11,7 +11,7 @@ public class TestPlay extends Canvas{
 
     public void loop() {
         new Window(WIDTH, HEIGHT, "Gomoku", this);
-        Player player1 = new Player(1, true);
+        Player player1 = new Player(1, false);
         Player player2 = new Player(2, true);
         Board workingBoard = new Board(19);
         CheckMove validator = new CheckMove();
@@ -89,6 +89,8 @@ public class TestPlay extends Canvas{
         g.setColor(Color.lightGray);
         if (t != 0)
             time = t;
+        int p = (board.getLastPlayed() % 2) + 1;
+        g.drawString("Player Turn: " + p, 800, 50);
         g.drawString("Miliseconds taken: " + time, 800, 100);
         renderTiles(g, board.getBoard());
 
