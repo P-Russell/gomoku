@@ -11,8 +11,8 @@ public class TestPlay extends Canvas{
 
     public void loop() {
         new Window(WIDTH, HEIGHT, "Gomoku", this);
-        Player player1 = new Player(1, false);
-        Player player2 = new Player(2, false);
+        Player player1 = new Player(1, true);
+        Player player2 = new Player(2, true);
         Board workingBoard = new Board(19);
         CheckMove validator = new CheckMove();
         boolean flag = true;
