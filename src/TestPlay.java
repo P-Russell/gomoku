@@ -11,7 +11,7 @@ public class TestPlay extends Canvas{
 
     public void loop() {
         new Window(WIDTH, HEIGHT, "Gomoku", this);
-        Player player1 = new Player(1, false);
+        Player player1 = new Player(1, true);
         Player player2 = new Player(2, true);
         Board workingBoard = new Board(19);
         CheckMove validator = new CheckMove();
@@ -25,7 +25,9 @@ public class TestPlay extends Canvas{
         while (flag) {
             if (workingBoard.getLastPlayed() != player1.getName()) {
                 if (player1.isAI()){
+                    d1 = new Date();
                     move = player1.getBestMove(workingBoard);
+                    d2 = new Date();
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
             }

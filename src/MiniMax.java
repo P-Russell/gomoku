@@ -14,7 +14,7 @@ public class MiniMax {
         }
         if (max){
             if (board.isTerminal())
-                return (2500);
+                return (2400);
             bestValue = -10000;
             nodes = ExpandBoard.expand(board);
             l = nodes.size();
@@ -30,7 +30,7 @@ public class MiniMax {
         }
         else {
             if (board.isTerminal())
-                return (2400);
+                return (2500);
             bestValue = 10000;
             nodes = ExpandBoard.expand(board);
             l = nodes.size();

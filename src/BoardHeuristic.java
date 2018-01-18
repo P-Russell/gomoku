@@ -11,7 +11,7 @@ public class BoardHeuristic {
             while (j <= cl){
                 if (brd[i][j] == 0 && (valid.isCaptureMove(board, i, j) || !valid.isDoubleThree(board, i, j))) {
                     if (valid.singleThree(board, i, j)) {
-                        brdSol[i][j] = 2100;
+                        brdSol[i][j] = 1800;
                     }
                     else {
                         //System.out.println("check");
@@ -41,20 +41,32 @@ public class BoardHeuristic {
         int rl = (board.getDownRight().y + 3 < 18) ? (board.getDownRight().y + 3) : 18;
         int cl = (board.getDownRight().x + 3 < 18) ? (board.getDownRight().x + 3) : 18;
         int i = (board.getUpLeft().y - 3 >= 0) ? board.getUpLeft().y - 3 : 0;
+        int y = 19;
+        int x = 19;
         Move val = new Move(0, 0, 0);
         while (i <= rl){
             int j = (board.getUpLeft().x - 3 >= 0) ? board.getUpLeft().x - 3 : 0;
             while (j <= cl){
-                if (brdSol[i][j] != 0 && val.piece < brdSol[i][j]) {
-                    val.piece = brdSol[i][j];
-                    val.y = i;
-                    val.x = j;
+                if (brdSol[i][j] != 0 && val.piece <= brdSol[i][j]) {
+                    if (val.piece < brdSol[i][j]) {
+                        val.piece = brdSol[i][j];
+                        val.y = i;
+                        val.x = j;
+                    }
+                    else if (val.piece == brdSol[i][j]){
+                        if (y > Math.abs(board.getLastY() - i) || x > Math.abs(board.getLastX() - y)){
+                            y = Math.abs(board.getLastY() - i);
+                            x = Math.abs(board.getLastX() - i);
+                            val.y = i;
+                            val.x = j;
+                        }
+                    }
                 }
                 j++;
             }
             i++;
         }
-        TerminalGame.printBoard(brdSol);
+        //TerminalGame.printBoard(brdSol);
         //currently returns the max value over the whole board
         return (val);
     }
