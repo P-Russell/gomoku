@@ -1,8 +1,11 @@
 public class Counts {
+    public int fiveInRow;
+    public int unRefutable;
     public int fourInRow;
     public int threeInRow;
     public int brokenThrees;
     public int twoInRow;
+    public int ones;
 
     public Counts(Board board) {
         int len = board.getBoard().length;
@@ -14,7 +17,7 @@ public class Counts {
         for (int y = 0; y < len; y++)
             for (int x = 0; x < len; x++) {
                 if (board.getBoard()[y][x] == board.getLastPlayed()) {
-                    int[] counts = new int[5];
+                    int[] counts = new int[7];
                     if (examinedHorizontal[y][x] == 0)
                         counts[1] = countHorizontal(board, y, x, examinedHorizontal);
                     if (examinedVertical[y][x] == 0)
@@ -24,12 +27,18 @@ public class Counts {
                     if (examinedRightDiagonals[y][x] == 0)
                         counts[4] = countRightDiagonal(board, y, x, examinedRightDiagonals);
                     for (int i = 0; i < counts.length; i++) {
+                        if (counts[i] == 5)
+                            this.fiveInRow++;
+                        if (counts[i] == 20)
+                            this.unRefutable++;
                         if (counts[i] == 4)
                             this.fourInRow++;
                         if (counts[i] == 3)
                             this.threeInRow++;
                         if (counts[i] == 2)
                             this.twoInRow++;
+                        if (counts[i] == 1)
+                            this.ones++;
                     }
                 }
             }
@@ -69,6 +78,8 @@ public class Counts {
             blocked++;
         if (blocked == 2)
             return 0;
+        else if (blocked == 0 && count == 4)
+            return 20;      // un-refutable configuration.
         return count;
     }
 

@@ -4,6 +4,7 @@ public class Board
     private int lastPlayed;
     private int lastX;
     private int lastY;
+    private Board parent;
 
     public Board(Board board) {
         this.board = new int[board.getBoard().length][];
@@ -12,6 +13,7 @@ public class Board
         this.lastY = board.getLastY();
         this.lastX = board.getLastX();
         this.lastPlayed = board.getLastPlayed();
+        this.parent = board;
     }
 
     public Board(int dimensions){
@@ -28,12 +30,14 @@ public class Board
     }
 
     public void placeValidatedPiece(int y, int x) {
-        if (this.lastPlayed == 1)
-            this.board[y][x] = this.lastPlayed = 2;
-        else
-            this.board[y][x] = this.lastPlayed = 1;
-        this.lastX = x;
-        this.lastY = y;
+        if (this.board[y][x] == 0) {
+            if (this.lastPlayed == 1)
+                this.board[y][x] = this.lastPlayed = 2;
+            else
+                this.board[y][x] = this.lastPlayed = 1;
+            this.lastX = x;
+            this.lastY = y;
+        }
     }
 
     public void placeSuggestedPiece(int y, int x, int val){

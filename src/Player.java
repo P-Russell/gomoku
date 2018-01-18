@@ -35,7 +35,7 @@ public class Player {
 
     public Move getBestMove(Board board) {
         if (this.isAI) {
-            return (TerminalGame.randomMove(board, this));
+            return (MinMax.bestMove(board));
         } else
             return (TerminalGame.getMoveFromTerminal(board, this));
     }

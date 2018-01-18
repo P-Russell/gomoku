@@ -25,7 +25,9 @@ public class TestPlay extends Canvas{
         while (flag) {
             if (workingBoard.getLastPlayed() != player1.getName()) {
                 if (player1.isAI()){
+                    d1 = new Date();
                     move = player1.getBestMove(workingBoard);
+                    d2 = new Date();
                     workingBoard.placeValidatedPiece(move.y, move.x);
                 }
             }
@@ -87,7 +89,14 @@ public class TestPlay extends Canvas{
         g.setColor(Color.lightGray);
         if (t != 0)
             time = t;
-        g.drawString("Miliseconds taken: " + time, 800, 100);
+        String p;
+        if (board.getLastPlayed() == 2)
+            p = "Player Turn : White";
+        else
+            p = "Player Turn : Black";
+        g.drawString( p, 800, 50);
+        g.drawString("Miliseconds Taken: " + time, 800, 100);
+     //   g.drawString("Moves Taken :" + board.getMoves(), 800, 150);
         renderTiles(g, board.getBoard());
 
         g.dispose();

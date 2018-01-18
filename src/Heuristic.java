@@ -6,16 +6,22 @@
 public class Heuristic {
 
     public static int boardValue(Board board) {
-        int weightFour = 4;
-        int weightThree = 3;
-        int weightBrokenThree = 2;
-        int weightTwo = 1;
+        int weightFive = 50;
+        int unRefutableWeight = 40;
+        int weightFour = 25;
+        int weightThree = 16;
+        int weightBrokenThree = 8;
+        int weightTwo = 10;
+        int weightOne = 1;
         Counts count = new Counts(board);
 
-        int boardValue = weightFour * count.fourInRow +
+        int boardValue = weightFive * count.fiveInRow +
+                unRefutableWeight * count.unRefutable +
+                weightFour * count.fourInRow +
                 weightThree * count.threeInRow +
                 weightBrokenThree * count.brokenThrees +
-                weightTwo * count.twoInRow;
+                weightTwo * count.twoInRow +
+                weightOne * count.ones;
         return boardValue;
     }
 }

@@ -12,12 +12,25 @@ public class ExpandBoard {
 
         for (int y = 0; y < board.getBoard().length; y++)
             for (int x = 0; x < board.getBoard().length; x++) {
-                if (board.getBoard()[y][x] != 0 && board.getBoard()[y][x] != 0) {
+
+
+
+
+
+                if (board.getBoard()[y][x] != 0) {
+
+
+
                     for (int tempY = y - stepFromPlaced;
                          tempY <= (y + stepFromPlaced) && tempY < board.getBoard().length; tempY++)
                         for (int tempX = x - stepFromPlaced;
                              tempX <= (x + stepFromPlaced) && tempX < board.getBoard().length; tempX++) {
+
+
+
                             if (tempX >= 0 && tempY >= 0 && moves[tempY][tempX] == 0 && board.getBoard()[tempY][tempX] == 0) {
+
+
                                 moves[tempY][tempX] = 1;
                                 Board node = new Board(board);
                                 if (validator.isCaptureMove(node, tempY, tempX)) {
