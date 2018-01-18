@@ -4,22 +4,18 @@
 
 
 public class Heuristic {
-    public int heuristic(Board board) {
+
+    public static int boardValue(Board board) {
         int weightFour = 4;
         int weightThree = 3;
         int weightBrokenThree = 2;
         int weightTwo = 1;
-
         Counts count = new Counts(board);
+
         int boardValue = weightFour * count.fourInRow +
                 weightThree * count.threeInRow +
                 weightBrokenThree * count.brokenThrees +
                 weightTwo * count.twoInRow;
-//        int boardValue =
-//                weightFour * fourInRow(board) +
-//                weightThree * threeInRow(board) +
-//                weightBrokenThree * brokenThree(board) +
-//                weightTwo * twoInRow(board);
-        return 0;
+        return boardValue;
     }
 }

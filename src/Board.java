@@ -4,9 +4,6 @@ public class Board
     private int lastPlayed;
     private int lastX;
     private int lastY;
-    private int heuristic;
-    private Move upLeft = new Move(19, 19, 0);
-    private Move downRight = new Move(0, 0, 0);
 
     public Board(Board board) {
         this.board = new int[board.getBoard().length][];
@@ -15,13 +12,19 @@ public class Board
         this.lastY = board.getLastY();
         this.lastX = board.getLastX();
         this.lastPlayed = board.getLastPlayed();
-        this.upLeft = board.getUpLeft();
-        this.downRight = board.getDownRight();
     }
 
     public Board(int dimensions){
         this.board = new int[dimensions][dimensions];
         this.lastPlayed = 2;
+    }
+
+    //Debugging code
+    public Board(int[][] board, int lastPlayed, int lastX, int lastY) {
+        this.board = board;
+        this.lastPlayed = lastPlayed;
+        this.lastX = lastX;
+        this.lastY = lastY;
     }
 
     public void placeValidatedPiece(int y, int x) {
@@ -31,16 +34,6 @@ public class Board
             this.board[y][x] = this.lastPlayed = 1;
         this.lastX = x;
         this.lastY = y;
-        //upLeft
-        if (y < this.upLeft.y)
-            this.upLeft.y = y;
-        if (x < this.upLeft.x)
-            this.upLeft.x = x;
-        //downRight
-        if (y > this.downRight.y)
-            this.downRight.y = y;
-        if (x > this.downRight.x)
-            this.downRight.x = x;
     }
 
     public void placeSuggestedPiece(int y, int x, int val){
@@ -50,14 +43,6 @@ public class Board
     public boolean isTerminal() {
         WinningMove winMove = new WinningMove();
         return winMove.isWinMove(this);
-    }
-
-    public Move getUpLeft(){
-        return (this.upLeft);
-    }
-
-    public Move getDownRight() {
-        return (this.downRight);
     }
 
     public int getLastPlayed() {
@@ -74,13 +59,5 @@ public class Board
 
     public int[][] getBoard() {
         return board;
-    }
-
-    public void setHeuristic(int v){
-        this.heuristic = v;
-    }
-
-    public int getHeuristic(){
-        return this.heuristic;
     }
 }
