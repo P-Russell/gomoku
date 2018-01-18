@@ -50,4 +50,13 @@ public class CheckMove {
         }
         return true;
     }
+
+    public boolean singleThree(Board board, int y, int x){
+        DoubleThree d = new DoubleThree();
+        if (board.getLastPlayed() == 1)
+            return (d.Three(board.getBoard(), y, x, 2));
+        else
+            return (d.Three(board.getBoard(), y, x, 1));
+    }
+
 }

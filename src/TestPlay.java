@@ -11,7 +11,7 @@ public class TestPlay extends Canvas{
 
     public void loop() {
         new Window(WIDTH, HEIGHT, "Gomoku", this);
-        Player player1 = new Player(1, true);
+        Player player1 = new Player(1, false);
         Player player2 = new Player(2, true);
         Board workingBoard = new Board(19);
         CheckMove validator = new CheckMove();
@@ -20,6 +20,8 @@ public class TestPlay extends Canvas{
         Move move;
         this.addMouseListener(new MouseGame(clickMove, player1, player2, workingBoard));
         this.addKeyListener(new KeyGame(workingBoard, this, player1, player2));
+        Date d1 = new Date();
+        Date d2 = new Date();
         while (flag) {
             if (workingBoard.getLastPlayed() != player1.getName()) {
                 if (player1.isAI()){
@@ -28,25 +30,33 @@ public class TestPlay extends Canvas{
                 }
             }
             else if (player2.isAI()) {
+                d1 = new Date();
                 move = player2.getBestMove(workingBoard);
+                d2 = new Date();
                 workingBoard.placeValidatedPiece(move.y, move.x);
             }
             if (clickMove.piece != 0){
                 if (validator.validateAndCapturePieces(workingBoard, clickMove.y, clickMove.x)) {
-                    System.out.println("place");
                     workingBoard.placeValidatedPiece(clickMove.y, clickMove.x);
+                    Date b = new Date();
+                    Date e = new Date();
+                    while (e.getTime() - b.getTime() < 250) {
+                        render(workingBoard, d2.getTime() - d1.getTime());
+                        e = new Date();
+                    }
                 }
                 else {
                     System.out.println("Invalid Move");
-                    flash(workingBoard, clickMove.y, clickMove.x, 4);
+                    flash(workingBoard, clickMove.y, clickMove.x, 4, 1000);
                 }
                 clickMove.piece = 0;
             }
-            render(workingBoard, 1000);
+            render(workingBoard, d2.getTime() - d1.getTime());
             //TerminalGame.printBoard(workingBoard.getBoard());
             flag = !workingBoard.isTerminal();
             //flag = TerminalGame.exitGame();
         }
+        System.out.println("Player " + workingBoard.getLastPlayed() + " has won the game");
         render(workingBoard, 1000);
     }
 
@@ -77,7 +87,7 @@ public class TestPlay extends Canvas{
         g.setColor(Color.lightGray);
         if (t != 0)
             time = t;
-        g.drawString("Seconds taken: " + time, 800, 100);
+        g.drawString("Miliseconds taken: " + time, 800, 100);
         renderTiles(g, board.getBoard());
 
         g.dispose();
@@ -104,14 +114,14 @@ public class TestPlay extends Canvas{
         }
     }
 
-    public void flash(Board board, int r, int c, int val){
+    public void flash(Board board, int r, int c, int val, int time){
         int[][] temp = board.getBoard();
         int t = temp[r][c];
         board.placeSuggestedPiece(r, c, val);
         Date d = new Date();
         long b = d.getTime();
         long end = d.getTime();
-        while (end - b < 1000) {
+        while (end - b < time) {
             render(board, 1000);
             d = new Date();
             end = d.getTime();

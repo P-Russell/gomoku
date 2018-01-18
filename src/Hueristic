@@ -1,0 +1,11 @@
+weighting in a row
+sum of weighting in a row
+highest heuristic over whole board
+check for winning move or blocking winning move before miniMax
+
+
+Eliminating nodes:
+too far from a tile
+limit it to rectangle based on the furthest most tile in each direction
+combination of both?
+around last placed tile?
