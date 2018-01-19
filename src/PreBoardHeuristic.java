@@ -30,7 +30,7 @@ public class PreBoardHeuristic {
         thread3.start();
         Threading thread4 = new Threading("Thread 4", nodes, 4, player);
         thread4.start();
-        /*try {
+        try {
             thread1.join();
             thread2.join();
             thread3.join();
@@ -38,7 +38,7 @@ public class PreBoardHeuristic {
         }
         catch (InterruptedException e){
             System.out.println("Error joining");
-        }*/
+        }
         int val = 0;
         int t = 0;
         for (int i = 0; i < l; i++) {
