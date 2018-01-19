@@ -7,7 +7,7 @@ public class ExpandBoard {
         ArrayList<Board> expanded = new ArrayList<>();
         int[][] moves = new int[board.getBoard().length][board.getBoard().length];
         CheckMove validator = new CheckMove();
-        int stepFromPlaced = 2;
+        int stepFromPlaced = 1;
 
 
         for (int y = 0; y < board.getBoard().length; y++)
@@ -24,6 +24,7 @@ public class ExpandBoard {
                     for (int tempY = y - stepFromPlaced;
                          tempY <= (y + stepFromPlaced) && tempY < board.getBoard().length; tempY++)
                         for (int tempX = x - stepFromPlaced;
+
                              tempX <= (x + stepFromPlaced) && tempX < board.getBoard().length; tempX++) {
 
 

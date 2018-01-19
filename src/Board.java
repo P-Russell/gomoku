@@ -4,7 +4,8 @@ public class Board
     private int lastPlayed;
     private int lastX;
     private int lastY;
-    private Board parent;
+    public Board parent;
+    public int generation;
 
     public Board(Board board) {
         this.board = new int[board.getBoard().length][];
@@ -14,11 +15,13 @@ public class Board
         this.lastX = board.getLastX();
         this.lastPlayed = board.getLastPlayed();
         this.parent = board;
+        this.generation = board.generation + 1;
     }
 
     public Board(int dimensions){
         this.board = new int[dimensions][dimensions];
         this.lastPlayed = 2;
+        this.generation = 0;
     }
 
     //Debugging code
@@ -30,14 +33,12 @@ public class Board
     }
 
     public void placeValidatedPiece(int y, int x) {
-        if (this.board[y][x] == 0) {
-            if (this.lastPlayed == 1)
-                this.board[y][x] = this.lastPlayed = 2;
-            else
-                this.board[y][x] = this.lastPlayed = 1;
-            this.lastX = x;
-            this.lastY = y;
-        }
+        if (this.lastPlayed == 1)
+            this.board[y][x] = this.lastPlayed = 2;
+        else
+            this.board[y][x] = this.lastPlayed = 1;
+        this.lastX = x;
+        this.lastY = y;
     }
 
     public void placeSuggestedPiece(int y, int x, int val){
