@@ -11,8 +11,8 @@ public class TestPlay extends Canvas{
 
     public void loop() {
         new Window(WIDTH, HEIGHT, "Gomoku", this);
-        Player player1 = new Player(1, false);
-        Player player2 = new Player(2, true);
+        Player player1 = new Player(1, true);
+        Player player2 = new Player(2, false);
         Board workingBoard = new Board(19);
         CheckMove validator = new CheckMove();
         boolean flag = true;
@@ -43,7 +43,7 @@ public class TestPlay extends Canvas{
                     Date b = new Date();
                     Date e = new Date();
                     while (e.getTime() - b.getTime() < 250) {
-                        render(workingBoard, d2.getTime() - d1.getTime());
+                        render(workingBoard, d2.getTime() - d1.getTime(), false);
                         e = new Date();
                     }
                 }
@@ -53,19 +53,24 @@ public class TestPlay extends Canvas{
                 }
                 clickMove.piece = 0;
             }
-            render(workingBoard, d2.getTime() - d1.getTime());
+            render(workingBoard, d2.getTime() - d1.getTime(), false);
             //TerminalGame.printBoard(workingBoard.getBoard());
             flag = !workingBoard.isTerminal();
             //flag = TerminalGame.exitGame();
         }
         System.out.println("Player " + workingBoard.getLastPlayed() + " has won the game");
-        render(workingBoard, 1000);
+        Date b = new Date();
+        Date e = new Date();
+        while (e.getTime() - b.getTime() < 250) {
+            render(workingBoard, 1000, true);
+            e = new Date();
+        }
     }
 
     private BufferedImage image;
     private long time;
 
-    public void render(Board board, long t){
+    public void render(Board board, long t, boolean w){
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null){
             this.createBufferStrategy(3);
@@ -97,6 +102,16 @@ public class TestPlay extends Canvas{
         g.drawString( p, 800, 50);
         g.drawString("Miliseconds Taken: " + time, 800, 100);
         g.drawString("Moves Taken :" + board.getMoves(), 800, 150);
+        if (w) {
+            if (board.getLastPlayed() == 1) {
+                g.setColor(Color.white);
+                win(g, "White");
+            }
+            else {
+                g.setColor(Color.black);
+                win(g, "Black");
+            }
+        }
         renderTiles(g, board.getBoard());
 
         g.dispose();
@@ -131,10 +146,15 @@ public class TestPlay extends Canvas{
         long b = d.getTime();
         long end = d.getTime();
         while (end - b < time) {
-            render(board, 1000);
+            render(board, 1000, false);
             d = new Date();
             end = d.getTime();
         }
         board.placeSuggestedPiece(r, c, t);
     }
+
+    private void win(Graphics g, String s){
+        g.drawString(s + " has Won", 800, 250);
+    }
+
 }

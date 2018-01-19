@@ -10,11 +10,11 @@ public class MiniMax {
 
         if (depth == 0) {
             Move t = BoardHeuristic.heuristicSum(board, board.getBoard(), player.getName());
-            return (t.piece - 30 * (depth - 2));
+            return (t.piece - 30 * (3 - depth));
         }
         if (max){
             if (board.isTerminal())
-                return (2400 - 25 * (depth - 2));
+                return (2400 - 25 * (3 - depth));
             bestValue = -10000;
             nodes = ExpandBoard.expand(board);
             l = nodes.size();
@@ -30,7 +30,7 @@ public class MiniMax {
         }
         else {
             if (board.isTerminal())
-                return (2500 - 25 * (depth - 2));
+                return (2500 - 25 * (3 - depth));
             bestValue = 10000;
             nodes = ExpandBoard.expand(board);
             l = nodes.size();
